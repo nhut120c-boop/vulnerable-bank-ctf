@@ -1,4 +1,4 @@
-\// Admin Bot - giả lập hành vi của Admin
+// Admin Bot - giả lập hành vi của Admin
 // Định kỳ đăng nhập/duyệt trang /dashboard để xem lịch sử giao dịch.
 // Nếu người chơi chèn payload XSS vào "Nội dung chuyển khoản", payload
 // sẽ được thực thi trong trình duyệt của bot này (có cookie session admin).
