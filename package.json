@@ -1,0 +1,19 @@
+{
+  "name": "vulnerable-bank",
+  "version": "1.0.0",
+  "description": "CTF Web challenge - Vulnerable Bank",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "bot": "node admin-bot.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.10",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "puppeteer": "^22.15.0"
+  }
+}

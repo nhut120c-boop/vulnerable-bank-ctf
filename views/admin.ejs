@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Vulnerable Bank</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <nav class="navbar navbar-dark bg-danger px-3">
+    <span class="navbar-brand">🛡️ Admin Panel - Vulnerable Bank</span>
+    <a href="/dashboard" class="btn btn-sm btn-outline-light">Dashboard</a>
+  </nav>
+
+  <div class="container d-flex flex-column align-items-center justify-content-center" style="min-height:70vh;">
+    <div class="card shadow p-4" style="width: 420px;">
+      <h4 class="mb-3">Chuyển tiền đặc quyền (Mint)</h4>
+      <div id="msg"></div>
+      <form id="mintForm">
+        <div class="mb-2">
+          <label class="form-label">Tài khoản nhận</label>
+          <input type="text" id="targetUsername" class="form-control" required>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Số tiền</label>
+          <input type="number" id="amount" class="form-control" min="1" required>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Mã PIN (4 số)</label>
+          <input type="text" id="pin" class="form-control" maxlength="4" required>
+        </div>
+        <button type="submit" class="btn btn-danger w-100 mt-2">Thực thi</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('mintForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const targetUsername = document.getElementById('targetUsername').value;
+      const amount = document.getElementById('amount').value;
+      const pin = document.getElementById('pin').value;
+
+      const res = await fetch('/api/admin/mint-money', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ targetUsername, amount, pin }),
+      });
+      const data = await res.json();
+      const msgDiv = document.getElementById('msg');
+      if (data.status === 'success') {
+        msgDiv.innerHTML = '<div class="alert alert-success">Thành công! Số dư mới: ' + data.newBalance + '</div>';
+      } else {
+        msgDiv.innerHTML = '<div class="alert alert-danger">' + data.message + '</div>';
+      }
+    });
+  </script>
+</body>
+</html>
