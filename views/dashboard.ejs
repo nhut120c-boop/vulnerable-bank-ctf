@@ -2,87 +2,90 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard - Vulnerable Bank</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tổng quan tài khoản | Vulnerable Bank</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body class="bg-light">
-  <nav class="navbar navbar-dark bg-dark px-3">
-    <span class="navbar-brand">🏦 Vulnerable Bank</span>
-    <div>
-      <span class="text-white me-3">Xin chào, <%= user.username %></span>
-      <a href="/buy-flag" class="btn btn-sm btn-warning me-2">Mua Flag</a>
-      <a href="/logout" class="btn btn-sm btn-outline-light">Đăng xuất</a>
+<body>
+  <div class="vb-topbar">
+    <a href="/dashboard" class="vb-logo">
+      <svg class="mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="8" fill="#12315C"/>
+        <path d="M16 6L27 11V13H5V11L16 6Z" fill="#E7D28C"/>
+        <rect x="7" y="14" width="3" height="10" fill="#E7D28C"/>
+        <rect x="14.5" y="14" width="3" height="10" fill="#E7D28C"/>
+        <rect x="22" y="14" width="3" height="10" fill="#E7D28C"/>
+        <rect x="5" y="25" width="22" height="2.5" fill="#E7D28C"/>
+      </svg>
+      Vulnerable Bank
+    </a>
+    <div class="vb-topbar-actions">
+      <span class="vb-user-chip">Xin chào, <%= user.username %></span>
+      <a href="/buy-flag" class="vb-btn vb-btn-gold">Kho Bạc VIP</a>
+      <a href="/logout" class="vb-btn vb-btn-ghost">Đăng xuất</a>
     </div>
-  </nav>
+  </div>
 
-  <div class="container py-4">
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="card shadow-sm mb-4">
-          <div class="card-body">
-            <h5 class="card-title">Số dư</h5>
-            <p class="fs-3 fw-bold text-success"><%= user.balance.toLocaleString('vi-VN') %> VND</p>
-          </div>
+  <div style="max-width:1080px; margin:28px auto; padding:0 20px;">
+    <div style="display:grid; grid-template-columns: 340px 1fr; gap:22px; align-items:start;">
+
+      <div>
+        <div class="vb-balance-card" style="margin-bottom:18px;">
+          <div class="vb-balance-label">Số dư khả dụng</div>
+          <div class="vb-balance-amount"><%= user.balance.toLocaleString('vi-VN') %> ₫</div>
+          <div class="vb-balance-sub">Tài khoản: <%= user.username %></div>
         </div>
 
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Chuyển tiền</h5>
-            <% if (error) { %>
-              <div class="alert alert-danger"><%= error %></div>
-            <% } %>
-            <form method="POST" action="/transfer">
-              <div class="mb-2">
-                <label class="form-label">Người nhận (username)</label>
-                <input type="text" name="to" class="form-control" required>
-              </div>
-              <div class="mb-2">
-                <label class="form-label">Số tiền (VND)</label>
-                <input type="number" name="amount" class="form-control" min="1" required>
-              </div>
-              <div class="mb-2">
-                <label class="form-label">Nội dung chuyển khoản</label>
-                <input type="text" name="content" class="form-control" placeholder="VD: trả tiền cafe">
-              </div>
-              <small class="text-muted">Phí giao dịch: 10%</small>
-              <button type="submit" class="btn btn-primary w-100 mt-2">Chuyển tiền</button>
-            </form>
-          </div>
+        <div class="vb-card">
+          <h5 style="margin:0 0 16px;">Chuyển khoản nhanh</h5>
+          <% if (error) { %>
+            <div class="vb-alert vb-alert-danger"><%= error %></div>
+          <% } %>
+          <form method="POST" action="/transfer">
+            <label class="vb-label">Người thụ hưởng</label>
+            <input type="text" name="to" class="vb-input" style="margin-bottom:12px;" required>
+
+            <label class="vb-label">Số tiền (VND)</label>
+            <input type="number" name="amount" class="vb-input" style="margin-bottom:12px;" min="1" required>
+
+            <label class="vb-label">Nội dung chuyển khoản</label>
+            <input type="text" name="content" class="vb-input" style="margin-bottom:6px;" placeholder="VD: trả tiền cafe">
+            <div style="font-size:0.78rem; color:var(--text-400); margin-bottom:14px;">Phí giao dịch: 10% giá trị chuyển</div>
+
+            <button type="submit" class="vb-btn vb-btn-primary vb-btn-block">Chuyển tiền</button>
+          </form>
         </div>
       </div>
 
-      <div class="col-md-8">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Lịch sử giao dịch toàn hệ thống</h5>
-            <table class="table table-striped align-middle">
-              <thead>
-                <tr>
-                  <th>Từ</th>
-                  <th>Đến</th>
-                  <th>Số tiền</th>
-                  <th>Phí</th>
-                  <th>Nội dung</th>
-                  <th>Thời gian</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% transactions.forEach(tx => { %>
-                  <tr>
-                    <td><%= tx.from %></td>
-                    <td><%= tx.to %></td>
-                    <td><%= tx.amount.toLocaleString('vi-VN') %></td>
-                    <td><%= tx.fee.toLocaleString('vi-VN') %></td>
-                    <!-- cố tình không encode: nội dung chuyển khoản render thẳng ra html -->
-                    <td><%- tx.content %></td>
-                    <td><%= new Date(tx.time).toLocaleString('vi-VN') %></td>
-                  </tr>
-                <% }) %>
-              </tbody>
-            </table>
-          </div>
-        </div>
+      <div class="vb-card">
+        <h5 style="margin:0 0 16px;">Lịch sử giao dịch toàn hệ thống</h5>
+        <table class="vb-table">
+          <thead>
+            <tr>
+              <th>Từ</th>
+              <th>Đến</th>
+              <th>Số tiền</th>
+              <th>Phí</th>
+              <th>Nội dung</th>
+              <th>Thời gian</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% transactions.forEach(tx => { %>
+              <tr>
+                <td><%= tx.from %></td>
+                <td><%= tx.to %></td>
+                <td class="vb-amount-out"><%= tx.amount.toLocaleString('vi-VN') %></td>
+                <td class="mono"><%= tx.fee.toLocaleString('vi-VN') %></td>
+                <!-- cố tình không encode: nội dung chuyển khoản render thẳng ra html -->
+                <td><%- tx.content %></td>
+                <td style="color:var(--text-400); font-size:0.82rem;"><%= new Date(tx.time).toLocaleString('vi-VN') %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
       </div>
+
     </div>
   </div>
 </body>

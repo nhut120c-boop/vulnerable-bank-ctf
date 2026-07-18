@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Roboto+Mono:wght@500;600&display=swap');
+
+:root {
+  --navy-900: #0B2545;
+  --navy-700: #12315C;
+  --navy-600: #1B4B91;
+  --gold-500: #C9A227;
+  --gold-300: #E7D28C;
+  --bg: #F3F5F9;
+  --surface: #FFFFFF;
+  --border: #E1E6ED;
+  --text-900: #101828;
+  --text-600: #4A5568;
+  --text-400: #8895A7;
+  --success: #1B7A43;
+  --success-bg: #E7F5EC;
+  --danger: #B3261E;
+  --danger-bg: #FBEAE9;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text-900);
+  font-family: 'Inter', -apple-system, sans-serif;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, .brand-font {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.mono { font-family: 'Roboto Mono', monospace; }
+
+/* ---------- Topbar ---------- */
+.vb-topbar {
+  background: var(--navy-900);
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vb-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.15rem;
+  text-decoration: none;
+}
+
+.vb-logo .mark {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+.vb-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vb-user-chip {
+  color: #C7D2E3;
+  font-size: 0.88rem;
+  margin-right: 4px;
+}
+
+/* ---------- Buttons ---------- */
+.vb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.08s ease, box-shadow 0.15s ease;
+}
+.vb-btn:hover { transform: translateY(-1px); text-decoration: none; }
+
+.vb-btn-primary { background: var(--navy-600); color: #fff; }
+.vb-btn-primary:hover { background: var(--navy-700); color: #fff; box-shadow: 0 4px 14px rgba(19,49,92,.25); }
+
+.vb-btn-gold { background: linear-gradient(135deg, var(--gold-300), var(--gold-500)); color: var(--navy-900); }
+.vb-btn-gold:hover { box-shadow: 0 4px 14px rgba(201,162,39,.35); color: var(--navy-900); }
+
+.vb-btn-ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.35); }
+.vb-btn-ghost:hover { background: rgba(255,255,255,.08); color: #fff; }
+
+.vb-btn-outline { background: transparent; color: var(--navy-600); border: 1px solid var(--navy-600); }
+.vb-btn-outline:hover { background: var(--navy-600); color: #fff; }
+
+.vb-btn-block { width: 100%; }
+
+/* ---------- Cards ---------- */
+.vb-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 1px 2px rgba(16,24,40,.04);
+}
+
+.vb-auth-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(201,162,39,0.10), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(27,75,145,0.15), transparent 45%),
+    var(--navy-900);
+  padding: 20px;
+}
+
+.vb-auth-card { width: 380px; }
+
+.vb-auth-card .vb-logo { color: var(--navy-900); margin-bottom: 18px; justify-content: center; }
+
+/* ---------- Balance hero (thẻ ngân hàng) ---------- */
+.vb-balance-card {
+  border-radius: 16px;
+  padding: 22px 24px;
+  background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-600) 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.vb-balance-card::after {
+  content: "";
+  position: absolute;
+  right: -40px; top: -40px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: rgba(201,162,39,0.18);
+}
+.vb-balance-label { font-size: 0.78rem; color: #B9C6DD; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+.vb-balance-amount { font-family: 'Roboto Mono', monospace; font-size: 2rem; font-weight: 600; }
+.vb-balance-sub { font-size: 0.78rem; color: #9FB0CB; margin-top: 10px; }
+
+/* ---------- Form ---------- */
+.vb-label { font-size: 0.85rem; font-weight: 600; color: var(--text-600); margin-bottom: 6px; display: block; }
+
+.vb-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+  background: #FBFCFE;
+}
+.vb-input:focus { outline: 2px solid var(--navy-600); outline-offset: 1px; border-color: var(--navy-600); }
+
+/* ---------- Table ---------- */
+.vb-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.vb-table th {
+  text-align: left;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-400);
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+}
+.vb-table td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.vb-table tr:last-child td { border-bottom: none; }
+.vb-amount-out { color: var(--danger); font-family: 'Roboto Mono', monospace; }
+.vb-amount-in { color: var(--success); font-family: 'Roboto Mono', monospace; }
+
+/* ---------- Alerts ---------- */
+.vb-alert { border-radius: 8px; padding: 10px 14px; font-size: 0.88rem; margin-bottom: 14px; }
+.vb-alert-danger { background: var(--danger-bg); color: var(--danger); }
+.vb-alert-success { background: var(--success-bg); color: var(--success); }
+
+/* ---------- Vault (trang đổi flag) ---------- */
+.vb-vault-shell {
+  max-width: 480px;
+  margin: 40px auto;
+  text-align: center;
+}
+.vb-vault-dial {
+  width: 96px; height: 96px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold-300), var(--gold-500));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px rgba(201,162,39,.35);
+}
+.vb-vault-code {
+  font-family: 'Roboto Mono', monospace;
+  background: var(--navy-900);
+  color: var(--gold-300);
+  padding: 16px;
+  border-radius: 10px;
+  word-break: break-all;
+  font-size: 0.95rem;
+  margin-top: 10px;
+}
+.vb-badge-req {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #EEF2F8;
+  color: var(--text-600);
+  margin-top: 4px;
+}
