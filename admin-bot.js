@@ -1,11 +1,11 @@
-// Admin Bot - giả lập hành vi của Admin
+\// Admin Bot - giả lập hành vi của Admin
 // Định kỳ đăng nhập/duyệt trang /dashboard để xem lịch sử giao dịch.
 // Nếu người chơi chèn payload XSS vào "Nội dung chuyển khoản", payload
 // sẽ được thực thi trong trình duyệt của bot này (có cookie session admin).
 
 const puppeteer = require('puppeteer');
 
-const TARGET_URL = process.env.TARGET_URL || 'http://localhost:3000';
+const TARGET_URL = process.env.TARGET_URL || `http://localhost:${process.env.PORT || 3000}`;
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || '68686868';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'l4m_sa0_m4_b3_du0c';
 const VISIT_INTERVAL_MS = 60 * 1000; // mỗi 1 phút
